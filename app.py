@@ -4,7 +4,7 @@ app = Flask(__name__)
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = "filesystem"
 trips = {
-    'data': None
+    'data': None,
 }
 
 #
@@ -17,7 +17,11 @@ def hello_world():
 def poll(line):
     
     
-    line = 'SPRP'
+    lines = line.split(',')
+    for line in lines:
+        if line not in data_passer.lines:
+            return 'Invalid Lines'
+
     if request.method != "GET":
         return 'Wrong req'
     else:
@@ -25,7 +29,7 @@ def poll(line):
         print('current time: ' +str(time.time()))
         if (trips['data'] == None) or ((time.time() - trips.get('data')[0])  > 60):
             print('data updated!')
-            trips['data'] = data_passer.get_train_data(['SPRP'])
+            trips['data'] = data_passer.get_train_data(lines)
         
         output = {
             'data': trips['data']
