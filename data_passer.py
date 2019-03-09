@@ -2,7 +2,6 @@ from google.transit import gtfs_realtime_pb2
 import requests
 
 lines = ['BDBN', 'BDBR', 'BDRW', 'BDVL', 'BNBD', 'BNBR', 'BNDB', 'BNFG', 'BNSH', 'BRBD', 'BRBN', 'BRCA', 'BRCL', 'BRDB', 'BRFG', 'BRGY', 'BRIP', 'BRNA', 'BRRP', 'BRRW', 'BRSH', 'BRSP', 'BRVL', 'CABR', 'CACL', 'CAIP', 'CARW', 'CASP', 'CLBR', 'CLDB', 'CLSH', 'DBBN', 'DBBR', 'DBCL', 'DBDB', 'FGBN', 'FGBR', 'GYBR', 'IPBR', 'IPCA', 'IPDB', 'IPFG', 'IPNA', 'IPRP', 'IPRW', 'NABR', 'NAIP', 'NASP', 'RBUS', 'RPBR', 'RPCL', 'RPIP', 'RPSP', 'RWBD', 'RWBR', 'RWCA', 'RWIP', 'RWNA', 'RWRP', 'SHBN', 'SHBR', 'SHCL', 'SHSP', 'SPBR', 'SPCA', 'SPDB', 'SPNA', 'SPRP', 'VLBD', 'VLBR', 'VLDB']
-#chosen_lines = 
 
 def get_train_data(chosen_lines):
     """
@@ -58,7 +57,7 @@ def get_train_data(chosen_lines):
         arrival_time = stop_info.arrival.time
         departure_time = stop_info.departure.time
         stop_sequence = stop_info.stop_sequence
-        time_stamp = entity.timestamp
+        time_stamp = entry.timestamp
 
         departure_delay = stop_info.departure.delay
         arrival_delay = stop_info.arrival.delay
@@ -68,5 +67,4 @@ def get_train_data(chosen_lines):
         packet = (time_stamp, trip_id, route_id, stop_id, stopped, arrival_time, arrival_delay, departure_time, departure_delay, stop_sequence)
         output.append(packet)
 
-    print(output)
     return output
