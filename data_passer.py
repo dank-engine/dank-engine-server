@@ -3,7 +3,7 @@ import time
 import requests
 
 lines = ['BDBN', 'BDBR', 'BDRW', 'BDVL', 'BNBD', 'BNBR', 'BNDB', 'BNFG', 'BNSH', 'BRBD', 'BRBN', 'BRCA', 'BRCL', 'BRDB', 'BRFG', 'BRGY', 'BRIP', 'BRNA', 'BRRP', 'BRRW', 'BRSH', 'BRSP', 'BRVL', 'CABR', 'CACL', 'CAIP', 'CARW', 'CASP', 'CLBR', 'CLDB', 'CLSH', 'DBBN', 'DBBR', 'DBCL', 'DBDB', 'FGBN', 'FGBR', 'GYBR', 'IPBR', 'IPCA', 'IPDB', 'IPFG', 'IPNA', 'IPRP', 'IPRW', 'NABR', 'NAIP', 'NASP', 'RBUS', 'RPBR', 'RPCL', 'RPIP', 'RPSP', 'RWBD', 'RWBR', 'RWCA', 'RWIP', 'RWNA', 'RWRP', 'SHBN', 'SHBR', 'SHCL', 'SHSP', 'SPBR', 'SPCA', 'SPDB', 'SPNA', 'SPRP', 'VLBD', 'VLBR', 'VLDB']
-
+#chosen_lines = 
 
 def get_train_data(chosen_lines):
     """
@@ -70,5 +70,5 @@ def get_train_data(chosen_lines):
         packet = (trip_id, route_id, stop_id, stopped, arrival_time, arrival_delay, departure_time, departure_delay, stop_sequence)
         output.append(packet)
 
-
+    print(output)
     return output
