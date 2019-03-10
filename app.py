@@ -1,18 +1,25 @@
-from flask import Flask, request
+from flask import Flask, request, session
+from flask_session import Session
 import data_passer, json, time
 app = Flask(__name__)
+
+#Sessions, but unused as of yet
 app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = "filesystem"
+Session(app)
+
+#temporary storage
 trips = {
     'data': None,
 }
 
-#
-
+#Hello World sanity check
 @app.route('/')
 def hello_world():
     return 'Hello, World!'
 
+#actual program
+#route takes variable of what lines to retriev
 @app.route('/trainpoll/<line>', methods=['GET', 'POST'])
 def poll(line):
     
