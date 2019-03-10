@@ -1,6 +1,8 @@
 from flask import Flask, request, session
+from google.transit import gtfs_realtime_pb2
 from flask_session import Session
-import data_passer, json, time
+from . import data_passer
+import json, time, requests
 app = Flask(__name__)
 
 #Sessions, but unused as of yet
@@ -8,9 +10,12 @@ app.config['SESSION_PERMANENT'] = False
 app.config['SESSION_TYPE'] = "filesystem"
 Session(app)
 
+input_data = requests.get('https://gtfsrt.api.translink.com.au/Feed/SEQ').content
+
 #temporary storage
 trips = {
     'data': None,
+    'time': time.time()
 }
 
 #Hello World sanity check
@@ -34,9 +39,9 @@ def poll(line):
     else:
         print('trips server data: ' +str(trips['data']))
         print('current time: ' +str(time.time()))
-        if (trips['data'] == None) or ((time.time() - trips.get('data')[0])  > 60):
+        if (trips['data'] == None) or ((time.time() - trips.get('time'))  > 60):
             print('data updated!')
-            trips['data'] = data_passer.get_train_data(lines)
+            trips['data'] = data_passer.parse_train_data(input_data, lines)
         
         output = {
             'data': trips['data']
