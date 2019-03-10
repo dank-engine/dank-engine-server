@@ -1,9 +1,10 @@
 from google.transit import gtfs_realtime_pb2
 import requests
 import time
+
 lines = ['BDBN', 'BDBR', 'BDRW', 'BDVL', 'BNBD', 'BNBR', 'BNDB', 'BNFG', 'BNSH', 'BRBD', 'BRBN', 'BRCA', 'BRCL', 'BRDB', 'BRFG', 'BRGY', 'BRIP', 'BRNA', 'BRRP', 'BRRW', 'BRSH', 'BRSP', 'BRVL', 'CABR', 'CACL', 'CAIP', 'CARW', 'CASP', 'CLBR', 'CLDB', 'CLSH', 'DBBN', 'DBBR', 'DBCL', 'DBDB', 'FGBN', 'FGBR', 'GYBR', 'IPBR', 'IPCA', 'IPDB', 'IPFG', 'IPNA', 'IPRP', 'IPRW', 'NABR', 'NAIP', 'NASP', 'RBUS', 'RPBR', 'RPCL', 'RPIP', 'RPSP', 'RWBD', 'RWBR', 'RWCA', 'RWIP', 'RWNA', 'RWRP', 'SHBN', 'SHBR', 'SHCL', 'SHSP', 'SPBR', 'SPCA', 'SPDB', 'SPNA', 'SPRP', 'VLBD', 'VLBR', 'VLDB']
 
-def get_train_data(chosen_lines):
+def parse_train_data(input_data, chosen_lines):
     """
     Takes a list of lines and returns the data neccesary to interact with.
 
@@ -21,8 +22,8 @@ def get_train_data(chosen_lines):
     # Gather the Protobuffer
     feed = gtfs_realtime_pb2.FeedMessage()
     current_time = round(time.time())
-    r = requests.get("https://gtfsrt.api.translink.com.au/Feed/SEQ")
-    feed.ParseFromString(r.content)
+    
+    feed.ParseFromString(input_data)
 
     # Begin Stripping of Data
     message = feed.entity
