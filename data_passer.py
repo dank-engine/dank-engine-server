@@ -11,7 +11,7 @@ def get_train_data(chosen_lines):
         chosen_lines(list): List of Lines to get data for.
 
     Returns:
-        [(time_stamp, trip_id, route_id, stop_id, stopped, arrival_time, arrival_delay, departure_time, departure_delay, stop_sequence), ...]
+        [(route_id, trip_id, previous_stop_id, next_stop_id, stopped, Percentage_complete), ...]
 
     """
     data = []
@@ -80,6 +80,3 @@ def get_train_data(chosen_lines):
             output.append(packet)
 
     return output
-
-data = get_train_data(["SPRP",])
-print(data)
